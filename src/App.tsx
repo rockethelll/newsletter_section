@@ -1,7 +1,18 @@
 import './App.css';
+import Footer from './components/Footer/Footer';
+import Image from './components/Image/Image';
+import Text from './components/Text/Text';
 
 function App() {
-  return <h1>Vite</h1>;
+  return (
+    <>
+      <div className='container'>
+        <Text />
+        <Image />
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 export default App;

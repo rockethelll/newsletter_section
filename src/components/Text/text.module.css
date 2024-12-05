@@ -1,0 +1,21 @@
+.container {
+  flex: 2;
+  width: 592px;
+  height: 100%;
+}
+
+.container h1 {
+  font-size: 3rem;
+  color: var(--neutral-900);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 48px;
+  margin-bottom: 64px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 48px;
+}
