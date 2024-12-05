@@ -1,0 +1,9 @@
+#root {
+  display: flex;
+  width: 1440px;
+  height: 768px;
+  min-height: 768px;
+  padding: 200px 0px;
+  flex-direction: column;
+  align-items: center;
+}
