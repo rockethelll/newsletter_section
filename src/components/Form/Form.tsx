@@ -14,6 +14,14 @@ const Form = () => {
 
   const onSubmit = handleSubmit((data) => console.log(data));
 
+  const getErrorMessage = () => {
+    if (errors.email?.type === 'required') return 'Email address is required';
+    if (errors.email?.type === 'pattern') return 'Please enter a valid email address';
+    return null;
+  };
+
+  const errorMessage = getErrorMessage();
+
   return (
     <form onSubmit={onSubmit} className={styles.form}>
       <label htmlFor='email' id='email' className='sr-only'>
@@ -29,11 +37,12 @@ const Form = () => {
           </button>
         </div>
         <div className={styles.error}>
-          {errors.email?.type === 'required' && <span>Email address is required</span>}
+          {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+          {/* {errors.email?.type === 'required' && <span>Email address is required</span>} */}
         </div>
-        <div className={styles.error}>
+        {/* <div className={styles.error}>
           {errors.email?.type === 'pattern' && <span>Please enter a valid email address</span>}
-        </div>
+        </div> */}
       </label>
       <button className={styles.btn} type='submit'>
         Subscribe
