@@ -17,9 +17,8 @@ const Text = () => {
           <Row key={row.id} content={row.content} />
         ))}
       </div>
-      <div className={styles.input}>
         <Form />
-      </div>
+        <p>We only send you the best! No spam.</p>
     </section>
   );
 };
