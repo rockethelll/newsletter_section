@@ -99,6 +99,6 @@
 
 .errorFocus {
   border-radius: 4px;
-  background: var(--neutral-50);  
+  background: var(--neutral-50);
   box-shadow: 0px 0px 0px 1px #d92d20, 0px 0px 0px 4px rgba(217, 45, 32, 0.12);
 }

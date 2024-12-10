@@ -17,8 +17,8 @@ const Text = () => {
           <Row key={row.id} content={row.content} />
         ))}
       </div>
-        <Form />
-        <p>We only send you the best! No spam.</p>
+      <Form />
+      <p>We only send you the best! No spam.</p>
     </section>
   );
 };

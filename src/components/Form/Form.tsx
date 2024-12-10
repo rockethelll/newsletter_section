@@ -29,9 +29,9 @@ const Form = () => {
         data,
       );
       if (response.status === 200) {
-        setStatus({message: response.data.message});
+        setStatus({ message: response.data.message });
       } else {
-        setStatus({error: response.data.error});
+        setStatus({ error: response.data.error });
         console.error('error', response.data);
       }
       reset();
@@ -45,22 +45,12 @@ const Form = () => {
     if (errors.email?.type === 'pattern') return 'Please enter a valid email address';
     return null;
   };
-  // useEffect(() => {
-  //   if (status && (status.message || status.error)) {
-  //     const timer = setTimeout(() => {
-  //       setStatus({});
-  //     }, 3000);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }
-  // , [status]);
 
   const errorMessage = getErrorMessage();
 
   return (
     <>
-    <Toast status={status} />
+      <Toast status={status} />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <label htmlFor='email' id='email' className='sr-only'>
           <div className={`${styles.input} ${errors.email ? styles.errorFocus : ''}`}>
@@ -72,9 +62,9 @@ const Form = () => {
               })}
               placeholder='name@email.com'
             />
-            <button className={styles.helpBtn}>
-              <img src='img/question-line.svg' alt='' />
-            </button>
+            <div className={styles.helpBtn}>
+              <img src='img/question-line.svg' alt='Question mark icon' />
+            </div>
           </div>
           {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </label>

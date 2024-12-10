@@ -10,4 +10,3 @@ describe('Footer', () => {
     expect(footer).toBeInTheDocument();
   });
 });
-
