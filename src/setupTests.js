@@ -1,5 +1,16 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { server } from './mocks/server';
 
-globalThis.render = render;
-globalThis.screen = screen;
+beforeAll(() => {
+  server.listen({
+    onUnhandledRequest: 'error',
+  });
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});

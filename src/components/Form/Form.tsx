@@ -1,8 +1,16 @@
 import { useForm } from 'react-hook-form';
 import styles from './form.module.css';
 import axios from 'axios';
+import { useState } from 'react';
+import Toast from '../Toast/Toast';
+
+export type StatusProps = {
+  message?: string | undefined;
+  error?: string | undefined;
+};
 
 const Form = () => {
+  const [status, setStatus] = useState<StatusProps>({});
   const {
     reset,
     register,
@@ -20,7 +28,12 @@ const Form = () => {
         'https://www.greatfrontend.com/api/projects/challenges/newsletter',
         data,
       );
-      console.log('response', response);
+      if (response.status === 200) {
+        setStatus({message: response.data.message});
+      } else {
+        setStatus({error: response.data.error});
+        console.error('error', response.data);
+      }
       reset();
     } catch (error) {
       console.error('error', error);
@@ -32,30 +45,44 @@ const Form = () => {
     if (errors.email?.type === 'pattern') return 'Please enter a valid email address';
     return null;
   };
+  // useEffect(() => {
+  //   if (status && (status.message || status.error)) {
+  //     const timer = setTimeout(() => {
+  //       setStatus({});
+  //     }, 3000);
+
+  //     return () => clearTimeout(timer);
+  //   }
+  // }
+  // , [status]);
 
   const errorMessage = getErrorMessage();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <label htmlFor='email' id='email' className='sr-only'>
-        <div className={`${styles.input} ${errors.email ? styles.errorFocus : ''}`}>
-          <input
-            type='email'
-            {...register('email', { required: true, pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i })}
-            placeholder='name@email.com'
-          />
-          <button className={styles.helpBtn}>
-            <img src='img/question-line.svg' alt='' />
-          </button>
-        </div>
-        <div className={styles.error}>
+    <>
+    <Toast status={status} />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <label htmlFor='email' id='email' className='sr-only'>
+          <div className={`${styles.input} ${errors.email ? styles.errorFocus : ''}`}>
+            <input
+              type='email'
+              {...register('email', {
+                required: true,
+                pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+              })}
+              placeholder='name@email.com'
+            />
+            <button className={styles.helpBtn}>
+              <img src='img/question-line.svg' alt='' />
+            </button>
+          </div>
           {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-        </div>
-      </label>
-      <button className={styles.btn} type='submit'>
-        Subscribe
-      </button>
-    </form>
+        </label>
+        <button className={styles.btn} type='submit'>
+          Subscribe
+        </button>
+      </form>
+    </>
   );
 };
 
