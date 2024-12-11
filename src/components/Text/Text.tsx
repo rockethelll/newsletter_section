@@ -18,7 +18,6 @@ const Text = () => {
         ))}
       </div>
       <Form />
-      <p>We only send you the best! No spam.</p>
     </section>
   );
 };

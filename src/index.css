@@ -28,8 +28,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  height: 100vh;
-  height: calc(100vh);
   background: linear-gradient(148deg, #f9fafb 8.89%, #d2d6db 100.48%);
   padding: 16px;
 }

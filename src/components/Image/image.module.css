@@ -1,5 +1,17 @@
 .img {
   width: 592px;
   height: 608px;
-  flex-shrink: 0;
+}
+
+@media screen and (max-width: 1280px) {
+  .img {
+    padding-bottom: 64px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .img {
+    width: 100%;
+    padding-bottom: 32px;
+  }
 }

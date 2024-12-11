@@ -6,7 +6,7 @@ import Success from './Success';
 import Error from './Error';
 
 const Toast = ({ status }: { status: StatusProps }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (status && (status.message || status.error)) {
@@ -28,7 +28,7 @@ const Toast = ({ status }: { status: StatusProps }) => {
   }
 
   const content = (
-    <div className={`${styles.toast} ${status.error ? styles.error : styles.success}`}>
+    <div className={styles.toast}>
       {status.error ? <Error status={status} /> : <Success status={status} />}
     </div>
   );

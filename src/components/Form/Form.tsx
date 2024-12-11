@@ -5,8 +5,8 @@ import { useState } from 'react';
 import Toast from '../Toast/Toast';
 
 export type StatusProps = {
-  message?: string | undefined;
-  error?: string | undefined;
+  message?: string;
+  error?: string;
 };
 
 const Form = () => {
@@ -52,22 +52,26 @@ const Form = () => {
     <>
       <Toast status={status} />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <label htmlFor='email' id='email' className='sr-only'>
-          <div className={`${styles.input} ${errors.email ? styles.errorFocus : ''}`}>
-            <input
-              type='email'
-              {...register('email', {
-                required: true,
-                pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-              })}
-              placeholder='name@email.com'
-            />
-            <div className={styles.helpBtn}>
-              <img src='img/question-line.svg' alt='Question mark icon' />
+        <div className={styles.inputParagraph}>
+          <label htmlFor='email' id='email' className='sr-only'>
+            <div className={`${styles.input} ${errors.email ? styles.errorFocus : ''}`}>
+              <input
+                id='email'
+                type='email'
+                {...register('email', {
+                  required: true,
+                  pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                })}
+                placeholder='name@email.com'
+              />
+              <div className={styles.helpBtn}>
+                <img src='img/question-line.svg' alt='Question mark icon' />
+              </div>
             </div>
-          </div>
-          {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-        </label>
+            {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+          </label>
+          <p>We only send you the best! No spam.</p>
+        </div>
         <button className={styles.btn} type='submit'>
           Subscribe
         </button>

@@ -4,7 +4,7 @@ import Image from '../components/Image/Image';
 describe('Image', () => {
   it('should render correctly', () => {
     render(<Image />);
-    screen.debug();
+
     const image = screen.getByRole('img');
     expect(image).toBeInTheDocument();
 

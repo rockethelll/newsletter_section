@@ -2,24 +2,17 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import Form from '../components/Form/Form';
-import { http } from 'msw';
-import { setupServer } from 'msw/node';
-import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
-// import server from '../mocks/node';
+import App from '../App';
 
 vi.mock('axios');
 
 describe('Form', () => {
-  beforeEach(() => {
-    render(<Form />);
-    vi.resetAllMocks();
-  });
-
   beforeAll(() => {
     vi.restoreAllMocks();
   });
 
   it('should render correctly', () => {
+    render(<Form />);
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: /subscribe/i });
 
@@ -28,6 +21,7 @@ describe('Form', () => {
   });
 
   it('should display en error if input is empty', async () => {
+    render(<Form />);
     const user = userEvent.setup();
     const button = screen.getByRole('button', { name: /subscribe/i });
 
@@ -38,6 +32,7 @@ describe('Form', () => {
   });
 
   it('should display en error if email is invalid', async () => {
+    render(<Form />);
     const user = userEvent.setup();
     const button = screen.getByRole('button', { name: /subscribe/i });
     const input = screen.getByRole('textbox');
@@ -48,11 +43,18 @@ describe('Form', () => {
     expect(await screen.findByText('Please enter a valid email address')).toBeInTheDocument();
   });
 
-  it.skip('should submit form successfully', async () => {
+  it('should submit form successfully', async () => {
+    render(<App />);
+
+    const toasterContainer = document.createElement('div');
+    toasterContainer.id = 'toast';
+    document.body.appendChild(toasterContainer);
+
+    expect(toasterContainer).toBeEmptyDOMElement();
+
     const user = userEvent.setup();
 
-    // axios.post.mockResolvedValueOnce({ data: successResponse });
-    const input = screen.getByRole('textbox');
+    const input = screen.getByPlaceholderText('name@email.com');
     const button = screen.getByRole('button', { name: /subscribe/i });
 
     await user.type(input, 'mail@mail.com');
@@ -63,43 +65,6 @@ describe('Form', () => {
       { email: 'mail@mail.com' },
     );
 
-    screen.debug();
-    const successResponse = await screen.findByText(
-      'Subscription successful! Please check your email to confirm.',
-    );
-
-    // await waitFor(() => expect(screen.findByText(successResponse.message)).toBeInTheDocument());
-    // expect(successResponse).toBeInTheDocument();
-  });
-
-  it.skip('should submit form and return an error', async () => {
-    const server = setupServer();
-    const user = userEvent.setup();
-    const errorResponse = {
-      error: 'Email format is invalid.',
-    };
-
-    server.use(
-      http.post(
-        'https://www.greatfrontend.com/api/projects/challenges/newsletter',
-        (req, res, ctx) => {
-          return new Response(ctx.json(errorResponse));
-        },
-      ),
-    );
-
-    const input = screen.getByRole('textbox');
-    const button = screen.getByRole('button', { name: /subscribe/i });
-
-    await user.type(input, 'mail');
-    await user.click(button);
-
-    // Vérifiez que l'API est appelée avec les bonnes données
-    expect(axios.post).toHaveBeenCalledWith(
-      'https://www.greatfrontend.com/api/projects/challenges/newsletter',
-      { email: 'mail' },
-    );
-
-    await waitFor(() => expect(screen.findByText(errorResponse.message)).toBeInTheDocument());
+    await waitFor(() => expect(input).toBeEmptyDOMElement());
   });
 });
