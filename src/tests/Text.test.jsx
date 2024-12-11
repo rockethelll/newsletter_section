@@ -7,7 +7,6 @@ describe('Text', () => {
     render(<Text />);
   });
   it('should render correctly', () => {
-    screen.debug();
     const header = screen.getByRole('heading', { name: /Get the finest/i });
     expect(header).toBeInTheDocument();
   });

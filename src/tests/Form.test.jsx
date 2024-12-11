@@ -27,7 +27,6 @@ describe('Form', () => {
 
     await user.click(button);
 
-    screen.debug();
     expect(await screen.findByText('Email address is required')).toBeInTheDocument();
   });
 
